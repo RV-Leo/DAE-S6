@@ -52,6 +52,7 @@ templates/
 ├── base.html                    # Plantilla base con bloques title, content, sidebar
 └── news/
     ├── _article_card.html       # Fragmento reutilizable (tarjeta de artículo)
+    ├── _article_cover.html      # Portada individual, con prioridad para imágenes del admin
     ├── _icon_home.html          # Icono SVG home
     ├── _icon_category.html      # Icono SVG categoría
     ├── _icon_admin.html         # Icono SVG admin
@@ -152,13 +153,13 @@ Comando `populate_news` crea:
 - 3 autores: Ana García, Carlos López, María Rodríguez
 - 6 artículos (2 por categoría) con fechas escalonadas
 
-## 12. Tests
+## 12. Pruebas y casos de aceptación
 
 ```bash
 # Verificación de configuración
 python manage.py check
 
-# Tests
+# Pruebas automatizadas
 python manage.py test
 
 # Prueba escapado automático (manual)
@@ -166,12 +167,116 @@ python manage.py test
 # 2. Ver en /articulo/<slug>/ → HTML mostrado como texto, no ejecutado
 ```
 
-## 13. Observaciones
+| Caso | Descripción | Resultado esperado |
+|------|-------------|-------------------|
+| Portada con noticias | Artículos publicados | Una tarjeta por artículo, con portada, título, fecha, autor y extracto |
+| Portada sin noticias | BD sin artículos | Mensaje "No hay noticias publicadas aún" |
+| Detalle noticia | Acceso a `/articulo/<slug>/` | Portada, título, fecha, autor, contenido y categorías |
+| Categoría vacía | `/categoria/<slug>/` sin artículos | Mensaje "No hay noticias en esta categoría" |
+| Categoría con noticias | Categoría con artículos | Tarjetas reutilizando `_article_card.html` |
+| Enlaces `{% url %}` | Navegación, sidebar y tarjetas | URLs correctas, sin rutas hardcodeadas |
+| Estáticos CSS/IMG | CSS, imágenes e iconos | Recursos disponibles y renderizados |
+| Admin CRUD | Crear/editar/borrar en `/admin/` | Cambios reflejados en el portal sin tocar código |
+| Escapado XSS | Artículo con `<script>` | HTML escapado; el script no se ejecuta |
+| Responsive | Ventanas de 900 px y 620 px | Layout y navegación adaptados al ancho disponible |
 
-- El motor de plantillas cubre herencia (`extends`), fragmentos (`include`), variables, control (`for`, `empty`), filtros (`date`, `truncatewords`, `linebreaks`)
-- El contenido gestionado desde el admin se ve en el portal sin tocar código
-- La estructura de plantillas está ordenada y explicada en este README (sección 6)
-- Las capturas del portal y admin deben tomarse manualmente para el entregable
+## 13. Estructura del proyecto
+
+```
+DAE-S6/
+├── manage.py
+├── requirements.txt
+├── README.md
+├── PROGRESS.md
+├── .gitignore
+├── .env.example
+├── .env                    # (no versionado)
+├── config/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── news/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── admin.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── tests.py
+│   ├── apps.py
+│   ├── context_processors.py
+│   ├── management/
+│   │   ├── __init__.py
+│   │   └── commands/
+│   │       ├── __init__.py
+│   │       └── populate_news.py
+│   └── migrations/
+│       ├── __init__.py
+│       ├── 0001_initial.py
+│       └── 0002_category_description.py
+├── templates/
+│   ├── base.html
+│   └── news/
+│       ├── _article_card.html
+│       ├── _article_cover.html
+│       ├── _icon_home.html
+│       ├── _icon_category.html
+│       ├── _icon_admin.html
+│       ├── _icon_date.html
+│       ├── _icon_author.html
+│       ├── _icon_arrow.html
+│       ├── home.html
+│       ├── article_detail.html
+│       └── category_list.html
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── img/
+│   │   ├── logo.svg
+│   │   └── news-decor.svg
+│   └── js/
+└── media/
+    └── articles/           # (creado al subir imágenes)
+```
+
+## 14. Capturas requeridas para el entregado
+
+El agente no puede tomarlas; el usuario debe capturar:
+
+1. **Estructura del proyecto en VS Code** (explorador de archivos expandido)
+2. **Portada con noticias y sus portadas individuales** (http://127.0.0.1:8000/)
+3. **Detalle de noticia** (http://127.0.0.1:8000/articulo/<slug>/)
+4. **Listado por categoría** (http://127.0.0.1:8000/categoria/tecnologia/)
+5. **Admin - lista de artículos** (http://127.0.0.1:8000/admin/news/article/)
+6. **Admin - editar artículo** (formulario con campos)
+7. **Prueba escapado** (artículo con HTML mostrado como texto)
+8. **Responsive** (DevTools; comprobar anchos menores a 900 px y 620 px)
+
+## 15. Entregable
+
+Formato exigido (texto plano, sin emojis):
+
+- Nombre del alumno
+- Título del desarrollo
+- Capturas del resultado (8 imágenes)
+- Código relevante (modelos, vistas, urls, plantillas base y fragmento)
+- Explicación del resultado
+- Casos de prueba (tabla arriba)
+- Captura estructura proyecto en editor
+
+## 16. Cierres de seguridad
+
+Al terminar:
+- Cerrar sesión GitHub / GitHub Desktop
+- Cerrar sesión campus virtual
+- No dejar credenciales en terminales abiertas
+
+## 17. Observaciones
+
+- El motor de plantillas demuestra herencia (`extends`), fragmentos (`include`), variables, control (`for`, `empty`) y filtros (`date`, `truncatewords`, `linebreaks`).
+- El contenido administrado desde Django Admin aparece en el portal sin modificar las plantillas.
+- La estructura de plantillas y sus fragmentos reutilizables se describen en la sección 6.
+- Las capturas del portal y del administrador deben tomarse manualmente para el entregable.
 
 ---
 
