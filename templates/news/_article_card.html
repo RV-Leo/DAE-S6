@@ -7,10 +7,21 @@
             <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
         </h2>
         <div class="article-card-meta">
-            <time datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:'d/m/Y' }}</time>
-            {% if article.author %} · Por {{ article.author.name }}{% endif %}
+            <time datetime="{{ article.published_at|date:'c' }}">
+                {% include 'news/_icon_date.html' %}
+                {{ article.published_at|date:'d/m/Y' }}
+            </time>
+            {% if article.author %}
+                <span class="author-meta">
+                    {% include 'news/_icon_author.html' %}
+                    Por {{ article.author.name }}
+                </span>
+            {% endif %}
         </div>
         <p class="article-card-excerpt">{{ article.content|truncatewords:30 }}</p>
-        <a href="{{ article.get_absolute_url }}" class="article-card-link">Leer más →</a>
+        <a href="{{ article.get_absolute_url }}" class="article-card-link">
+            Leer más
+            {% include 'news/_icon_arrow.html' %}
+        </a>
     </div>
 </article>

@@ -10,11 +10,11 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <h1 class="site-title"><a href="{% url 'news:home' %}">Portal de Noticias</a></h1>
+            <h1 class="site-title"><a href="{% url 'news:home' %}">{% include 'news/_icon_home.html' %} Portal de Noticias</a></h1>
             <nav class="site-nav">
                 <ul>
-                    <li><a href="{% url 'news:home' %}">Inicio</a></li>
-                    <li><a href="{% url 'admin:index' %}">Administración</a></li>
+                    <li><a href="{% url 'news:home' %}">{% include 'news/_icon_home.html' %} Inicio</a></li>
+                    <li><a href="{% url 'admin:index' %}">{% include 'news/_icon_admin.html' %} Administración</a></li>
                 </ul>
             </nav>
         </div>

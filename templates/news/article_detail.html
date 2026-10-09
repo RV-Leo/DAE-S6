@@ -10,8 +10,16 @@
     <div class="article-detail-content">
         <h1 class="article-detail-title">{{ article.title }}</h1>
         <div class="article-detail-meta">
-            <time datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:'d/m/Y H:i' }}</time>
-            {% if article.author %} · Por {{ article.author.name }}{% endif %}
+            <time datetime="{{ article.published_at|date:'c' }}">
+                {% include 'news/_icon_date.html' %}
+                {{ article.published_at|date:'d/m/Y H:i' }}
+            </time>
+            {% if article.author %}
+                <span class="author-meta">
+                    {% include 'news/_icon_author.html' %}
+                    Por {{ article.author.name }}
+                </span>
+            {% endif %}
         </div>
         <div class="article-detail-body">
             {{ article.content|linebreaks }}

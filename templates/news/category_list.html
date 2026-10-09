@@ -5,7 +5,7 @@
 {% block content %}
 <div class="articles-list">
     <header class="category-header">
-        <h1>{{ category.name }}</h1>
+        <h1>{% include 'news/_icon_category.html' %} {{ category.name }}</h1>
         {% if category.description %}
             <p>{{ category.description }}</p>
         {% endif %}
