@@ -1,0 +1,55 @@
+erDiagram
+    AUTHOR ||--o{ BOOK : "escribe / FK autor"
+    AUTHOR ||--o| AUTHOR_PROFILE : "tiene / OneToOne FK author"
+    BOOK }o--o{ CATEGORY : "categorias / M2M"
+    BOOK ||--o{ PUBLICATION : "libro / FK libro"
+    PUBLISHER ||--o{ PUBLICATION : "editorial / FK editorial"
+
+    AUTHOR {
+        BigAutoField id PK
+        CharField nombre
+        EmailField email UK
+        TextField bio
+        DateField fecha_nacimiento
+    }
+
+    BOOK {
+        BigAutoField id PK
+        CharField titulo
+        CharField isbn UK
+        ForeignKey autor_id FK
+        ManyToManyField categorias FK
+        DateField fecha_publicacion
+        TextField sinopsis
+        ImageField portada
+    }
+
+    AUTHOR_PROFILE {
+        BigAutoField id PK
+        OneToOneField author_id FK
+        CharField direccion
+        CharField telefono
+        ImageField foto
+    }
+
+    CATEGORY {
+        BigAutoField id PK
+        CharField nombre UK
+        TextField descripcion
+    }
+
+    PUBLISHER {
+        BigAutoField id PK
+        CharField nombre UK
+        CharField direccion
+        CharField ciudad
+        URLField sitio_web
+    }
+
+    PUBLICATION {
+        BigAutoField id PK
+        ForeignKey libro_id FK
+        ForeignKey editorial_id FK
+        DateField fecha_publicacion
+        CharField edicion
+    }

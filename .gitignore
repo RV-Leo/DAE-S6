@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+media/
+.env
+.obsidian/
+.venv/
+venv/
+.tool-tmp/
+
+# Herramientas locales
+.claude/

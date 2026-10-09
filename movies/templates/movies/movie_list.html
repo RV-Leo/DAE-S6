@@ -1,0 +1,14 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Catálogo de películas{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">Catálogo de películas</h1>
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {% for movie in movies %}
+        {% include 'movies/_movie_card.html' with show_link=True %}
+    {% empty %}
+        <p class="text-slate-400">Todavía no hay películas registradas.</p>
+    {% endfor %}
+</div>
+{% endblock %}

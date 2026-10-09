@@ -1,0 +1,231 @@
+{% extends 'library/base.html' %}
+{% load static %}
+
+{% block title %}{{ book.titulo }} — Library{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb / Back -->
+<nav aria-label="Back to library" class="mb-6">
+    <a href="{% url 'library:lista_libros' %}"
+       class="inline-flex items-center gap-2 text-sm font-medium text-library-600 hover:text-library-800 transition-colors duration-150 group">
+        <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-150" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+        </svg>
+        Back to All Books
+    </a>
+</nav>
+
+<!-- ==================== DETAIL HEADER ==================== -->
+<header class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden mb-6">
+    <div class="flex flex-col lg:flex-row">
+        <!-- Cover image (left on desktop, top on mobile) -->
+        <div class="lg:w-72 xl:w-80 flex-shrink-0">
+            {% if book.portada %}
+                <img src="{{ book.portada.url }}"
+                     alt="Cover of {{ book.titulo }}"
+                     class="w-full h-64 sm:h-72 lg:h-full object-cover"
+                     loading="lazy">
+            {% else %}
+                <div class="w-full h-64 sm:h-72 lg:h-full flex items-center justify-center bg-gradient-to-br from-library-100 to-library-200">
+                    <svg class="w-20 h-20 text-library-300" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Title & synopsis (right) -->
+        <div class="flex-1 p-6 sm:p-8">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-library-950 tracking-tight leading-tight">
+                {{ book.titulo }}
+            </h1>
+
+            {% if book.sinopsis %}
+                <div class="mt-4 text-slate-600 leading-relaxed text-sm sm:text-base">
+                    {{ book.sinopsis }}
+                </div>
+            {% endif %}
+
+            <!-- Categories as badges below synopsis -->
+            {% if book.categorias.all %}
+                <div class="flex flex-wrap gap-2 mt-4">
+                    {% for cat in book.categorias.all %}
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-library-100 text-library-800">
+                            {{ cat.nombre }}
+                        </span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<!-- ==================== INFO GRID ==================== -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <!-- ========== AUTHOR CARD ========== -->
+    <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6" aria-labelledby="author-heading">
+        <h2 id="author-heading" class="text-lg font-bold text-library-950 mb-5 flex items-center gap-2">
+            <svg class="w-5 h-5 text-library-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/>
+            </svg>
+            Author
+        </h2>
+
+        <dl class="space-y-4">
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">Name</dt>
+                <dd class="text-base font-semibold text-slate-800">{{ book.autor.nombre }}</dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">Email</dt>
+                <dd>
+                    {% if book.autor.email %}
+                        <a href="mailto:{{ book.autor.email }}" class="text-library-600 hover:text-library-800 underline underline-offset-2 transition-colors">{{ book.autor.email }}</a>
+                    {% else %}
+                        <span class="text-slate-400 italic text-sm">—</span>
+                    {% endif %}
+                </dd>
+            </div>
+
+            {% if book.autor.bio %}
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">Biography</dt>
+                <dd class="text-sm text-slate-600 leading-relaxed">{{ book.autor.bio }}</dd>
+            </div>
+            {% endif %}
+
+            <!-- Author profile — OneToOne related data -->
+            {% if book.autor.profile %}
+                <div class="border-t border-slate-100 pt-4 space-y-3 mt-4">
+                    {% if book.autor.profile.telefono %}
+                        <div>
+                            <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">Phone</dt>
+                            <dd class="text-sm text-slate-700">{{ book.autor.profile.telefono }}</dd>
+                        </div>
+                    {% endif %}
+
+                    {% if book.autor.profile.direccion %}
+                        <div>
+                            <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">Address</dt>
+                            <dd class="text-sm text-slate-700">{{ book.autor.profile.direccion }}</dd>
+                        </div>
+                    {% endif %}
+
+                    {% if book.autor.profile.foto %}
+                        <div class="mt-2">
+                            <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">Photo</dt>
+                            <img src="{{ book.autor.profile.foto.url }}"
+                                 alt="Photo of {{ book.autor.nombre }}"
+                                 class="w-16 h-16 rounded-full object-cover border-2 border-library-100"
+                                 loading="lazy">
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </dl>
+    </section>
+
+    <!-- ========== BOOK INFO CARD ========== -->
+    <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6" aria-labelledby="info-heading">
+        <h2 id="info-heading" class="text-lg font-bold text-library-950 mb-5 flex items-center gap-2">
+            <svg class="w-5 h-5 text-library-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+            </svg>
+            Book Details
+        </h2>
+
+        <dl class="space-y-4">
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">ISBN</dt>
+                <dd class="font-mono text-sm text-slate-700 bg-slate-50 rounded-lg px-3 py-2 inline-block">{{ book.isbn }}</dd>
+            </div>
+
+            {% if book.fecha_publicacion %}
+                <div>
+                    <dt class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-0.5">Publication Date</dt>
+                    <dd class="text-sm text-slate-700">{{ book.fecha_publicacion|date:"F j, Y" }}</dd>
+                </div>
+            {% endif %}
+        </dl>
+    </section>
+</div>
+
+<!-- ========== PUBLICATIONS / PUBLISHERS ========== -->
+<section class="mt-6 bg-white rounded-2xl shadow-sm border border-slate-200/80 p-6" aria-labelledby="pub-heading">
+    <h2 id="pub-heading" class="text-lg font-bold text-library-950 mb-5 flex items-center gap-2">
+        <svg class="w-5 h-5 text-library-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/>
+        </svg>
+        Publications &amp; Publishers
+    </h2>
+
+    {% if editoriales %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% for pub_data in editoriales %}
+                {% with editorial=pub_data.0 fecha=pub_data.1 edicion=pub_data.2 %}
+                <div class="rounded-xl border border-slate-100 bg-gradient-to-br from-slate-50 to-white p-4 hover:shadow-md hover:border-library-200 transition-all duration-200">
+                    <div class="flex items-start gap-3">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-library-100 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-library-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-semibold text-slate-800 text-sm truncate">{{ editorial.nombre }}</h3>
+                            {% if editorial.ciudad %}
+                                <p class="text-xs text-slate-400 mt-0.5">{{ editorial.ciudad }}{% if editorial.direccion %}, {{ editorial.direccion }}{% endif %}</p>
+                            {% endif %}
+                            <div class="flex items-center gap-3 mt-2 text-xs text-slate-500">
+                                <span class="inline-flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+                                    </svg>
+                                    {{ fecha|date:"M j, Y" }}
+                                </span>
+                                {% if edicion %}
+                                    <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-medium">
+                                        {{ edicion }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="flex items-center justify-center py-8 text-center">
+            <p class="text-sm text-slate-400">No publications recorded for this book.</p>
+        </div>
+    {% endif %}
+</section>
+
+<!-- ========== AUTHOR PROFILE LINK ========== -->
+{% if book.autor.profile %}
+<div class="mt-6 bg-gradient-to-r from-library-50 to-library-100/50 rounded-2xl border border-library-200/60 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+    {% if book.autor.profile.foto %}
+        <img src="{{ book.autor.profile.foto.url }}"
+             alt=""
+             class="w-14 h-14 rounded-full object-cover border-2 border-library-300 flex-shrink-0"
+             loading="lazy">
+    {% else %}
+        <div class="w-14 h-14 rounded-full bg-library-200 flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7 text-library-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0"/>
+            </svg>
+        </div>
+    {% endif %}
+    <div class="flex-1 min-w-0">
+        <p class="text-sm font-semibold text-library-900">Author Profile</p>
+        <p class="text-xs text-library-600 mt-0.5">
+            {{ book.autor.nombre }} &mdash; {{ book.autor.bio|truncatewords:20|default:"View author details" }}
+        </p>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

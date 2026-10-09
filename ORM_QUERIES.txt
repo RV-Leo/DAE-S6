@@ -1,0 +1,30 @@
+Django ORM Queries Results
+==========================
+Django version: 6.1
+Project: library
+
+Query executed in: python manage.py shell
+
+---
+
+Q1 - Book: Eva Luna
+    Author: Isabel Allende
+
+Q2 - Author: Gabriel Garcia Marquez
+    Books: ['Love in the Time of Cholera', 'One Hundred Years of Solitude']
+
+Q3 - Category: Magical Realism
+    Books: ['One Hundred Years of Solitude', 'The House of the Spirits']
+
+Q4 - Book: One Hundred Years of Solitude
+    Publisher: Alfaguara, Date: 1967-05-30, Edition: First Edition
+    Publisher: Penguin Books, Date: 1970-01-01, Edition: Reprint
+
+Q5 - Publisher: Penguin Books
+    Books via Publications: ['Eva Luna', 'Love in the Time of Cholera', 'One Hundred Years of Solitude']
+
+Q6 - Magical Realism books: ['One Hundred Years of Solitude', 'The House of the Spirits']
+
+Q7 - Author profile: +57-1234567
+
+Q8 - Fiction books: 3

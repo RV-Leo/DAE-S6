@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Library{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN (development) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        library: {
+                            50:  '#f0f4ff',
+                            100: '#dbe4ff',
+                            200: '#bac8ff',
+                            300: '#91a7ff',
+                            400: '#748ffc',
+                            500: '#5c7cfa',
+                            600: '#4c6ef5',
+                            700: '#4263eb',
+                            800: '#3b5bdb',
+                            900: '#364fc7',
+                            950: '#1a237e',
+                        },
+                        slate: {
+                            850: '#1e293b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts — Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom base styles — Inter font, smooth scroll */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html { scroll-behavior: smooth; }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="flex flex-col min-h-screen bg-slate-50 text-slate-800">
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="bg-library-950 shadow-lg shadow-library-950/30 sticky top-0 z-50" aria-label="Main navigation">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo / Brand -->
+                <a href="{% url 'library:lista_libros' %}" class="flex items-center gap-3 group" aria-label="Library home">
+                    <!-- Book icon -->
+                    <span class="flex items-center justify-center w-9 h-9 rounded-lg bg-library-700/40 group-hover:bg-library-600 transition-colors duration-200">
+                        <svg class="w-5 h-5 text-library-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </span>
+                    <span class="text-lg font-bold text-white tracking-tight">Library</span>
+                </a>
+
+                <!-- Desktop links -->
+                <div class="hidden sm:flex sm:items-center sm:gap-1">
+                    <a href="{% url 'library:lista_libros' %}"
+                       class="px-3 py-2 rounded-lg text-sm font-medium text-library-200 hover:text-white hover:bg-library-800/60 transition-colors duration-150">
+                        All Books
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="sm:hidden">
+                    <button id="mobile-menu-btn" type="button"
+                            class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-library-300 hover:text-white hover:bg-library-800/60 transition-colors"
+                            aria-label="Toggle navigation menu"
+                            aria-expanded="false"
+                            aria-controls="mobile-menu">
+                        <!-- Hamburger icon -->
+                        <svg id="menu-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
+                        </svg>
+                        <!-- Close icon -->
+                        <svg id="menu-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="sm:hidden hidden border-t border-library-800">
+            <div class="px-3 py-3 space-y-1">
+                <a href="{% url 'library:lista_libros' %}"
+                   class="block px-3 py-2 rounded-lg text-sm font-medium text-library-200 hover:text-white hover:bg-library-800/60 transition-colors">
+                    All Books
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-library-950 text-library-300 border-t border-library-800/50" role="contentinfo">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-md bg-library-800/60">
+                        <svg class="w-4 h-4 text-library-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </span>
+                    <span class="text-sm font-medium">Library &copy; {% now "Y" %}</span>
+                </div>
+                <p class="text-xs text-library-400 text-center sm:text-right">
+                    Django book catalog &mdash; Built with Django 6.x &amp; Tailwind CSS
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MOBILE MENU TOGGLE ==================== -->
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function () {
+            var menu = document.getElementById('mobile-menu');
+            var openIcon = document.getElementById('menu-open');
+            var closeIcon = document.getElementById('menu-close');
+            var expanded = this.getAttribute('aria-expanded') === 'true';
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+            this.setAttribute('aria-expanded', String(!expanded));
+        });
+    </script>
+
+</body>
+</html>

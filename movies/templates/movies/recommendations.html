@@ -1,0 +1,20 @@
+{% extends 'movies/base.html' %}
+
+{% block title %}Recomendaciones · {{ movie.title }}{% endblock %}
+
+{% block content %}
+<a href="{% url 'movies:movie_list' %}" class="text-sm text-slate-400 hover:text-white">← Catálogo</a>
+<h1 class="text-2xl font-bold mt-3">Si te gustó {{ movie.title }}</h1>
+<p class="text-slate-400 mt-1 mb-6">
+    Películas del mismo género
+    ({% for genre in movie.genres.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}),
+    de la mejor a la peor valorada.
+</p>
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {% for movie in recommended %}
+        {% include 'movies/_movie_card.html' with show_link=True %}
+    {% empty %}
+        <p class="text-slate-400">No hay otras películas de estos géneros.</p>
+    {% endfor %}
+</div>
+{% endblock %}

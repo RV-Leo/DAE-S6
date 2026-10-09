@@ -1,0 +1,20 @@
+[
+    {"model": "library.author", "pk": 1, "fields": {"nombre": "Gabriel Garcia Marquez", "email": "gabriel@test.com", "bio": "Colombian novelist, Nobel Prize winner", "fecha_nacimiento": "1927-03-06"}},
+    {"model": "library.author", "pk": 2, "fields": {"nombre": "Isabel Allende", "email": "isabel@test.com", "bio": "Chilean writer", "fecha_nacimiento": "1942-08-02"}},
+    {"model": "library.authorprofile", "pk": 1, "fields": {"author": 1, "direccion": "Rancho de la Gloria", "telefono": "+57-1234567", "foto": ""}},
+    {"model": "library.authorprofile", "pk": 2, "fields": {"author": 2, "direccion": "Santiago, Chile", "telefono": "+56-9876543", "foto": ""}},
+    {"model": "library.category", "pk": 1, "fields": {"nombre": "Magical Realism", "descripcion": "Literary genre blending reality with fantasy"}},
+    {"model": "library.category", "pk": 2, "fields": {"nombre": "Fiction", "descripcion": "Fictional literature"}},
+    {"model": "library.category", "pk": 3, "fields": {"nombre": "Politics", "descripcion": "Political fiction"}},
+    {"model": "library.publisher", "pk": 1, "fields": {"nombre": "Penguin Books", "direccion": "London", "ciudad": "London", "sitio_web": "https://penguin.com"}},
+    {"model": "library.publisher", "pk": 2, "fields": {"nombre": "Alfaguara", "direccion": "Madrid", "ciudad": "Madrid", "sitio_web": "https://alfaguara.com"}},
+    {"model": "library.book", "pk": 1, "fields": {"titulo": "One Hundred Years of Solitude", "isbn": "9780060883287", "autor": 1, "categorias": [1, 2], "fecha_publicacion": "1967-05-30", "sinopsis": "Masterpiece of magical realism"}},
+    {"model": "library.book", "pk": 2, "fields": {"titulo": "Love in the Time of Cholera", "isbn": "9780307389732", "autor": 1, "categorias": [2], "fecha_publicacion": "1985-09-01", "sinopsis": "A love story spanning decades"}},
+    {"model": "library.book", "pk": 3, "fields": {"titulo": "The House of the Spirits", "isbn": "9781501161772", "autor": 2, "categorias": [1, 3], "fecha_publicacion": "1982-01-01", "sinopsis": "Family saga across generations"}},
+    {"model": "library.book", "pk": 4, "fields": {"titulo": "Eva Luna", "isbn": "9780330340595", "autor": 2, "categorias": [2, 3], "fecha_publicacion": "1987-01-01", "sinopsis": "Epic narrative of love and revolution"}},
+    {"model": "library.publication", "pk": 1, "fields": {"libro": 1, "editorial": 2, "fecha_publicacion": "1967-05-30", "edicion": "First Edition"}},
+    {"model": "library.publication", "pk": 2, "fields": {"libro": 1, "editorial": 1, "fecha_publicacion": "1970-01-01", "edicion": "Reprint"}},
+    {"model": "library.publication", "pk": 3, "fields": {"libro": 2, "editorial": 1, "fecha_publicacion": "1988-01-01", "edicion": "First Edition"}},
+    {"model": "library.publication", "pk": 4, "fields": {"libro": 3, "editorial": 2, "fecha_publicacion": "1982-06-01", "edicion": "First Edition"}},
+    {"model": "library.publication", "pk": 5, "fields": {"libro": 4, "editorial": 1, "fecha_publicacion": "1987-03-01", "edicion": "First Edition"}}
+]

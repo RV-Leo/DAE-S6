@@ -1,0 +1,27 @@
+ON_DELETE BEHAVIOR TESTS
+========================
+
+Test 1: CASCADE (Author -> Book)
+---------------------------------
+Action: Delete an author that has books
+Expected: Books are also deleted (CASCADE)
+Result: Book objects were deleted automatically when author was deleted
+Reason: author.books has on_delete=models.CASCADE
+
+Test 2: CASCADE (Author -> AuthorProfile)
+------------------------------------------
+Action: Delete an author that has a profile
+Expected: Profile is also deleted (CASCADE via OneToOne)
+Result: Profile was deleted automatically when author was deleted
+Reason: AuthorProfile.author has on_delete=models.CASCADE
+
+Test 3: PROTECT (Publisher -> Publication)
+-------------------------------------------
+Action: Delete a publisher that has publications
+Expected: Deletion is blocked, ProtectedError raised
+Result: django.db.models.ProtectedError was raised
+Reason: Publication.editorial has on_delete=models.PROTECT
+
+Comparison:
+- CASCADE: Deletes related objects automatically (use for dependent data)
+- PROTECT: Prevents deletion if related objects exist (use for important reference data)
