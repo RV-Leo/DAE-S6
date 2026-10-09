@@ -317,4 +317,11 @@ body {
     .article-card {
         animation: none;
     }
+    
+    /* Desactivar animaciones SVG */
+    svg [animate],
+    svg [animateTransform],
+    svg [animateMotion] {
+        display: none;
+    }
 }
