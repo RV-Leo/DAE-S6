@@ -32,9 +32,11 @@
                 <div class="widget">
                     <h3>Categorías</h3>
                     <ul class="category-list">
-                        <li><a href="#">Tecnología</a></li>
-                        <li><a href="#">Deportes</a></li>
-                        <li><a href="#">Cultura</a></li>
+                        {% for cat in all_categories %}
+                        <li><a href="{% url 'news:category_list' cat.slug %}">{{ cat.name }}</a></li>
+                        {% empty %}
+                        <li>No hay categorías</li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="widget">
