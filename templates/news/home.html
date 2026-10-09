@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Portal de Noticias{% endblock %}
+
+{% block content %}
+<div class="articles-list">
+    {% if articles %}
+        {% for article in articles %}
+            {% include 'news/_article_card.html' %}
+        {% empty %}
+            <div class="empty-state">
+                <p>No hay noticias publicadas aún.</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>No hay noticias publicadas aún.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
