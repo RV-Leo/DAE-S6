@@ -4,9 +4,7 @@
 
 {% block content %}
 <article class="article-detail">
-    {% if article.featured_image %}
-        <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" class="article-detail-image">
-    {% endif %}
+    {% include 'news/_article_cover.html' with image_class='article-detail-image' image_alt=article.title image_loading='eager' %}
     <div class="article-detail-content">
         <h1 class="article-detail-title">{{ article.title }}</h1>
         <div class="article-detail-meta">

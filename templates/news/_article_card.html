@@ -1,7 +1,5 @@
 <article class="article-card">
-    {% if article.featured_image %}
-        <img src="{{ article.featured_image.url }}" alt="" class="article-card-image" aria-hidden="true">
-    {% endif %}
+    {% include 'news/_article_cover.html' with image_class='article-card-image' image_alt='' image_loading='lazy' %}
     <div class="article-card-content">
         <h2 class="article-card-title">
             <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>

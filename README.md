@@ -91,10 +91,12 @@ media/
 ## 8. Diseño visual
 
 - **Variables CSS** (`:root`): colores, espaciados, tipografía, bordes, transiciones
-- **Responsive**: Grid (layout principal), Flexbox (nav, tarjetas), breakpoint 768px
-- **Iconos SVG inline**: 6 fragmentos, `aria-hidden="true"` (decorativos)
-- **Animaciones**: `fadeInUp` en tarjetas (staggered delays), `prefers-reduced-motion: reduce` desactiva CSS y SMIL
+- **Responsive**: Grid (layout principal y noticias), Flexbox (nav y tarjetas), breakpoints 900px y 620px
+- **Iconos SVG inline**: 6 fragmentos propios, trazo fino y consistente, `aria-hidden="true"` (decorativos)
+- **Animaciones**: entrada escalonada de tarjetas, pulso decorativo y efectos hover; `prefers-reduced-motion: reduce` desactiva el movimiento
 - **Ilustración decorativa**: `static/img/news-decor.svg` con animaciones SMIL
+- **Portadas**: foto de Unsplash propia para cada noticia de ejemplo; las imágenes subidas desde Administración tienen prioridad y las noticias nuevas reciben una portada estable según su slug. El mismo fallback se usa en listados y detalle.
+- **Accesibilidad**: enlace para saltar al contenido y foco visible en la navegación por teclado
 
 ## 9. Seguridad
 

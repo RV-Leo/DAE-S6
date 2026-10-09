@@ -3,7 +3,21 @@
 {% block title %}Inicio - Portal de Noticias{% endblock %}
 
 {% block content %}
-<div class="articles-list">
+<section class="home-intro" aria-labelledby="home-intro-title">
+    <div class="home-intro-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Actualidad, sin ruido</p>
+        <h1 id="home-intro-title">Lo que pasa.<br><span>Lo que importa.</span></h1>
+        <p class="home-intro-description">Historias, ideas y noticias para entender mejor el mundo que nos rodea.</p>
+        <a class="home-intro-link" href="#noticias">Explorar noticias <span aria-hidden="true">↘</span></a>
+    </div>
+    <div class="home-intro-art" aria-hidden="true">
+        <span class="home-intro-orbit"></span>
+        <span class="home-intro-orbit-inner"></span>
+        <span class="home-intro-spark"></span>
+    </div>
+</section>
+
+<div class="articles-list" id="noticias">
     {% if articles %}
         {% for article in articles %}
             {% include 'news/_article_card.html' %}

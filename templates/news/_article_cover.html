@@ -1,0 +1,11 @@
+{% if article.featured_image %}
+    <img src="{{ article.featured_image.url }}" alt="{{ image_alt }}" class="{{ image_class }}" loading="{{ image_loading }}" decoding="async">
+{% else %}
+    <img
+        src="{% if article.slug == 'prueba-escapado-html' %}https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% elif article.slug == 'la-ia-revoluciona-la-medicina' %}https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% elif article.slug == 'el-equipo-local-gana-el-campeonato' %}https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% elif article.slug == 'nuevo-smartphone-rompe-records-de-ventas' %}https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% elif article.slug == 'festival-de-cine-anuncia-su-programacion' %}https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% elif article.slug == 'traspaso-historico-en-el-mercado-de-fichajes' %}https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% elif article.slug == 'nueva-exposicion-de-arte-contemporaneo-abre-sus-puertas' %}https://images.unsplash.com/photo-1501472312651-726afe119ff1?auto=format&amp;fit=crop&amp;w=1200&amp;q=85{% else %}https://picsum.photos/seed/{{ article.slug }}/1200/760{% endif %}"
+        alt="{{ image_alt }}"
+        class="{{ image_class }}"
+        loading="{{ image_loading }}"
+        decoding="async"
+        referrerpolicy="no-referrer">
+{% endif %}
