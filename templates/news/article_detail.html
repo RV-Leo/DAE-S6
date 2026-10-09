@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} - Portal de Noticias{% endblock %}
+
+{% block content %}
+<article class="article-detail">
+    {% if article.featured_image %}
+        <img src="{{ article.featured_image.url }}" alt="{{ article.title }}" class="article-detail-image">
+    {% endif %}
+    <div class="article-detail-content">
+        <h1 class="article-detail-title">{{ article.title }}</h1>
+        <div class="article-detail-meta">
+            <time datetime="{{ article.published_at|date:'c' }}">{{ article.published_at|date:'d/m/Y H:i' }}</time>
+            {% if article.author %} · Por {{ article.author.name }}{% endif %}
+        </div>
+        <div class="article-detail-body">
+            {{ article.content|linebreaks }}
+        </div>
+        {% if article.categories.all %}
+        <div class="article-detail-categories">
+            <strong>Categorías:</strong>
+            {% for category in article.categories.all %}
+                <a href="{% url 'news:category_list' category.slug %}">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}
