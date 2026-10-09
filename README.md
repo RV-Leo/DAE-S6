@@ -239,45 +239,6 @@ DAE-S6/
     └── articles/           # (creado al subir imágenes)
 ```
 
-## 14. Capturas requeridas para el entregado
-
-El agente no puede tomarlas; el usuario debe capturar:
-
-1. **Estructura del proyecto en VS Code** (explorador de archivos expandido)
-2. **Portada con noticias y sus portadas individuales** (http://127.0.0.1:8000/)
-3. **Detalle de noticia** (http://127.0.0.1:8000/articulo/<slug>/)
-4. **Listado por categoría** (http://127.0.0.1:8000/categoria/tecnologia/)
-5. **Admin - lista de artículos** (http://127.0.0.1:8000/admin/news/article/)
-6. **Admin - editar artículo** (formulario con campos)
-7. **Prueba escapado** (artículo con HTML mostrado como texto)
-8. **Responsive** (DevTools; comprobar anchos menores a 900 px y 620 px)
-
-## 15. Entregable
-
-Formato exigido (texto plano, sin emojis):
-
-- Nombre del alumno
-- Título del desarrollo
-- Capturas del resultado (8 imágenes)
-- Código relevante (modelos, vistas, urls, plantillas base y fragmento)
-- Explicación del resultado
-- Casos de prueba (tabla arriba)
-- Captura estructura proyecto en editor
-
-## 16. Cierres de seguridad
-
-Al terminar:
-- Cerrar sesión GitHub / GitHub Desktop
-- Cerrar sesión campus virtual
-- No dejar credenciales en terminales abiertas
-
-## 17. Observaciones
-
-- El motor de plantillas demuestra herencia (`extends`), fragmentos (`include`), variables, control (`for`, `empty`) y filtros (`date`, `truncatewords`, `linebreaks`).
-- El contenido administrado desde Django Admin aparece en el portal sin modificar las plantillas.
-- La estructura de plantillas y sus fragmentos reutilizables se describen en la sección 6.
-- Las capturas del portal y del administrador deben tomarse manualmente para el entregable.
-
 ---
 
 **Autor**: [Nombre del alumno]
